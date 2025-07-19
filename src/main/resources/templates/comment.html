@@ -8,12 +8,6 @@
 <body>
 <h1>Inter-Network Communication</h1>
 
-<form action="/api/v1/app/comment" method="post">
-<!--    <label for="username">Your Name:</label>-->
-    <input type="text" id="message" name="message" placeholder="Enter your message" required style="display:inline;">
-    <input type="text" id="username" name="username" placeholder="Enter your name" required style="display:inline;">
-    <button type="submit" style="display:inline;">&gt;</button>
-</form>
 
 <!-- Success message -->
 <!--<p th:if="${successMessage}" th:text="${successMessage}" style="color:green;"></p>-->
@@ -23,6 +17,17 @@
 <ul>
     <li th:each="comment : ${comments}" th:text="${comment}"></li>
 </ul>
+
+
+<!--```html-->
+<form action="/api/v1/app/comment" method="post" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <!--    <label for="username">Your Name:</label>-->
+    <input type="text" id="message" name="message" placeholder="Enter your message"
+           required style="border:none; border-bottom:1px solid #000; outline:none;">
+    <input type="text" id="username" name="username" placeholder="Enter your name"
+           required style="border:none; border-bottom:1px solid #000; outline:none;">
+    <button type="submit" style="display:inline;">&gt;</button>
+</form>
 
 </body>
 </html>

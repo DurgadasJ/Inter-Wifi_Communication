@@ -19,6 +19,7 @@ public class CommentController {
         return "comment"; // loads comment.html
     }
 
+
     @PostMapping("/api/v1/app/comment")
     public String submitComment(@RequestParam String username,
                                 @RequestParam String message,
@@ -27,6 +28,6 @@ public class CommentController {
         commentList.add(formattedComment); // add to shared list
         model.addAttribute("comments", commentList);
         model.addAttribute("successMessage", "Comment submitted!");
-        return "comment";
+        return "redirect:/comment"; // redirect to comment page
     }
 }
