@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -29,5 +31,21 @@ public class CommentController {
         model.addAttribute("comments", commentList);
         model.addAttribute("successMessage", "Comment submitted!");
         return "redirect:/comment"; // redirect to comment page
+    }
+
+    @GetMapping("/api/v1/app/comment")
+    public SseEmitter streamNotifications() {
+        SseEmitter emitter = new SseEmitter();
+        new Thread(() -> {
+            try {
+                while (true) {
+                    Thread.sleep(1000); // Simulate periodic updates
+                    emitter.send(commentList); // Send the updated comment list
+                }
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+        }).start();
+        return emitter;
     }
 }

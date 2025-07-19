@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Comment</title>
+    <title>Inter-Comm</title>
 </head>
 <body>
 <h1>Inter-Network Communication</h1>
@@ -30,4 +30,18 @@
 </form>
 
 </body>
+<script>
+    const eventSource = new EventSource('/api/v1/app/comment');
+    eventSource.onmessage = function(event) {
+        const comments = JSON.parse(event.data);
+        const commentList = document.querySelector('ul');
+        commentList.innerHTML = '';
+        comments.forEach(comment => {
+            const li = document.createElement('li');
+            li.textContent = comment;
+            commentList.appendChild(li);
+        });
+    };
+</script>
 </html>
+
